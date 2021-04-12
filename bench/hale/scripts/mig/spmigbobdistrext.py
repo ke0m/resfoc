@@ -15,7 +15,8 @@ cfile = "/homes/sep/joseph29/projects/scaas/oway/imageworker.py"
 launch_sshworkers(cfile,hosts=hosts,sleep=1,verb=1,clean=False)
 
 # Read in data
-daxes,dat = sep.read_file("hale_shotflatbob.H")
+#daxes,dat = sep.read_file("hale_shotflatbob.H")
+daxes,dat = sep.read_file("hale_shotflatfranc_2.H")
 dat = np.ascontiguousarray(dat.reshape(daxes.n,order='F').T).astype('float32')
 [nt,ntr] = daxes.n; [ot,_] = daxes.o; [dt,_] = daxes.d
 
@@ -55,7 +56,7 @@ img = dstr_sum('cid','result',nchnk,gen,socket,icnkr.get_img_shape())
 imgt = np.transpose(img,(2,4,3,1,0)) # [nhy,nhx,nz,ny,nx] -> [nz,nx,ny,nhx,nhy]
 # Get offset axis
 nhx,ohx,dhx = icnkr.get_offx_axis()
-sep.write_file("spimgextbobdistr.H",imgt,os=[oz,oxi,0.0,ohx,0.0],ds=[dz,dxi,dy,dhx,1.0])
+sep.write_file("spimgextfrancdistr_2.H",imgt,os=[oz,oxi,0.0,ohx,0.0],ds=[dz,dxi,dy,dhx,1.0])
 
 kill_sshworkers(cfile,hosts,verb=False)
 

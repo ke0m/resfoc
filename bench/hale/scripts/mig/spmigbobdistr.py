@@ -3,6 +3,7 @@ import numpy as np
 import zmq
 from oway.imagechunkr import imagechunkr
 from server.distribute import dstr_sum
+from server.utils import startserver
 from client.sshworkers import launch_sshworkers, kill_sshworkers
 
 # IO
@@ -14,7 +15,8 @@ cfile = "/homes/sep/joseph29/projects/scaas/oway/imageworker.py"
 launch_sshworkers(cfile,hosts=hosts,sleep=1,verb=1,clean=False)
 
 # Read in data
-daxes,dat = sep.read_file("hale_shotflatbob.H")
+#daxes,dat = sep.read_file("hale_shotflatbob.H")
+daxes,dat = sep.read_file("hale_shotflatfranc_2.H")
 dat = np.ascontiguousarray(dat.reshape(daxes.n,order='F').T).astype('float32')
 [nt,ntr] = daxes.n; [ot,_] = daxes.o; [dt,_] = daxes.d
 
@@ -45,15 +47,13 @@ icnkr.set_image_pars(ntx=16,nthrds=40,nrmax=10,sverb=True)
 gen = iter(icnkr)
 
 # Bind to socket
-context = zmq.Context()
-socket = context.socket(zmq.REP)
-socket.bind("tcp://0.0.0.0:5555")
+context,socket = startserver()
 
 # Distribute work to workers and sum over results
 img = dstr_sum('cid','result',nchnk,gen,socket,icnkr.get_img_shape())
 
 # Zero-offset image
-sep.write_file("spimgbobdistrtest.H",img,os=[oz,0.0,oxi],ds=[dz,1.0,dxi])
+sep.write_file("spimgfrancdistr_2.H",img,os=[oz,0.0,oxi],ds=[dz,1.0,dxi])
 
 kill_sshworkers(cfile,hosts,verb=False)
 
