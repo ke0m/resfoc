@@ -1,3 +1,6 @@
-[submodule "deeplearn/python_patch_extractor"]
-	path = deeplearn/python_patch_extractor
-	url = https://github.com/polimi-ispl/python_patch_extractor
+[submodule "resfoc/deeplearn/python_patch_extractor"]
+	path = resfoc/deeplearn/python_patch_extractor
+	url = https://github.com/polimi-ispl/python_patch_extractor.git
+[submodule "resfoc/external_cpp/progressbar"]
+	path = resfoc/external_cpp/progressbar
+	url = https://github.com/ke0m/progressbar.git

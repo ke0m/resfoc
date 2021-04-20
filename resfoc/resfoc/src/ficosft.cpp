@@ -1,5 +1,5 @@
 #include "ficosft.h"
-#include "progressbar.h"
+#include "progressbar/progressbar.h"
 
 void fwdcosft(int dim1, int n1, int n2, int *n, int *sign, int *s, float *data, bool verb) {
   int ctr = 0;

@@ -4,7 +4,7 @@
 #include "stretch.h"
 #include "ficosft.h"
 #include "rstoltbig.h"
-#include "progressbar.h"
+#include "progressbar/progressbar.h"
 
 rstoltbig::rstoltbig(int nz, int nm, int nh, int nzp, int nmp, int nhp, int nro,
     float dz, float dm, float dh, float dro, float oro) {
